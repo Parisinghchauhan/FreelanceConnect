@@ -1,24 +1,18 @@
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
-import { createServer } from 'http';
-import express from 'express';
-import { makeExecutableSchema } from '@graphql-tools/schema';
-import { WebSocketServer } from 'ws';
-import { useServer } from 'graphql-ws/lib/use/ws';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import typeDefs from './graphql/schema/index.js';
-import resolvers from './graphql/resolvers/index.js';
+import { useServer } from 'graphql-ws/lib/use/ws';
+import { createServer } from 'http';
 import { connect } from 'mongoose';
+import { WebSocketServer } from 'ws';
 
-import { verify } from 'jsonwebtoken';
-import { graphqlUploadExpress } from 'graphql-upload';
 import cookieParser from 'cookie-parser';
+import { graphqlUploadExpress } from 'graphql-upload';
+import { verify } from 'jsonwebtoken';
 
-const schema = makeExecutableSchema({ typeDefs, resolvers });
 
-const app = express();
 const httpServer = createServer(app);
 
 const wsServer = new WebSocketServer({
